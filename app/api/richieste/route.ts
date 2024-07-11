@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import PrismaClient from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-const prisma = new PrismaClient()
+const prisma = PrismaClient
 const richiesteSchema = z.object({
     CognomeNomeRichiedente: z.string().min(1),
     Importo: z.number().min(1),
