@@ -148,16 +148,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "POSTGRES_PRISMA_URL",
+        "fromEnvVar": "DATABASE_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"POSTGRES_PRISMA_URL\")\n  directUrl = env(\"POSTGRES_URL_NON_POOLING\")\n}\n\nmodel TRichieste {\n  RichiestaID              Int      @id @unique @default(autoincrement())\n  CognomeNomeRichiedente   String   @unique\n  DataInserimentoRichiesta DateTime @default(now())\n  Importo                  Int\n  NumeroRate               Int\n}\n",
-  "inlineSchemaHash": "dd314a132b957948687670c8b6e9807b77595c25a9c1844c1d816e03ea54f10d",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel TRichieste {\n  RichiestaID              Int      @id @unique @default(autoincrement())\n  CognomeNomeRichiedente   String   @unique\n  DataInserimentoRichiesta DateTime @default(now())\n  Importo                  Int\n  NumeroRate               Int\n}\n",
+  "inlineSchemaHash": "0c48ca157d1a7a414249cd55af4fd213afb0c7877205195bf0785dec40a82c3b",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -168,7 +169,7 @@ config.engineWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    POSTGRES_PRISMA_URL: typeof globalThis !== 'undefined' && globalThis['POSTGRES_PRISMA_URL'] || typeof process !== 'undefined' && process.env && process.env.POSTGRES_PRISMA_URL || undefined
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
   }
 })
 
